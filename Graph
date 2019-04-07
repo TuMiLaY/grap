@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>Nothing</title>
+    
+    <link rel="stylesheet" href="style.css">
+    </head>
+    
+    <body class="font-bolt">
+    <div id="app">
+      <div class="uravn">x<sup>2</sup>+<input v-model="b" type="number">x + <input v-model="c" type="number">=0</div>
+        <div class="disc">D={{D}}</div>
+        
+        <div class="result">
+            <template v-if="D > 0">
+        <div> x1= {{(-b + Math.sqrt(D)) / 2}}</div>
+        <div> x2= {{(-b - Math.sqrt(D)) / 2}}</div>
+                </template>
+        </div>
+        </div ><button v-on:click="createPlot">построить график</button>
+        <div id="plot">
+        
+            
+        </div>
+        
+        
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script>
+
+    <script src="https://unpkg.com/d3@3/d3.min.js"></script>
+    <script src="https://unpkg.com/function-plot@1/dist/function-plot.js"></script>
+    <script src="script.js"></script>
+   
+    </body>
+    
+    
+</html>
+
+var app= new Vue({
+  
+    el: '#app',
+    data: {
+        b: 5,
+        c: 3
+    },
+    computed: {
+        D: function () {
+        return this.b * this.b - 4*this.c;    
+        }   
+    },
+    methods: {
+        createPlot: function() {
+            functionPlot ({
+                target: '#plot',
+                data: [{
+                    fn: "x^2 + (" + this.b + ") * x +("+ this.c +")"
+                }],
+                grid: true
+            })
+        }
+    }
+    });
